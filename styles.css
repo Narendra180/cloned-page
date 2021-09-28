@@ -14,88 +14,97 @@ body {
     margin: 0;
 }
 
-.nav-and-logo-container {
+.navbar {
     background-color: #4c5b72;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: left;
-}
-
-.nav-bar {
-    height: 55px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
-    width: 80%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: top 0.3s;
 }
 
-.header-nav {
+.navbar-item1 {
+    height: 55px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.navbar-item1 h1 {
+    padding-top: 6px;
+}
+
+.navbar-item2 {
     display: none;
     width: 80%;
 }
 
-.header-nav ul {
-    list-style: none;
+.display-header-nav {
+    display: block;
+}
+
+.mobile-menu-btn {
+    margin-right: 15px;
+}
+
+.mobile-menu-btn i {
+    font-size: 35px;       
+    color: white;
+}
+
+.navbar-item2 {
     margin-top: 10px;
 }
 
-.header-nav ul li {
+.navbar-item2 ul {
+    list-style: none;
+}
+
+.navbar-item2 li {
     color: white;
     text-transform: capitalize;
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid white;
     font-size: 1.25rem;
     padding: 10px 0;
 }
 
-.header-nav li:nth-last-child(1) {
+.navbar-item2 li:nth-last-child(1) {
     padding-bottom: 14px;
     border: 0;
 }
 
-.header-nav-active {
-    display: block;
-}
-
-
-
 @media screen and (max-width: 450px) {
-    .nav-bar {
-        width: 90%;
-    }
-    
+
     .mobile-menu-btn {
         flex: 1;
     }
-
+    .navbar-item1-i {
+        flex: 1 0 0;
+    }
     #logo {
         flex: auto;
     }
-    .header-nav {
-        width: 90%;
-    }
+
 }
 
 @media screen and (min-width: 450px) {
     .mobile-menu-btn {
         position: absolute;
-        left: 0;
-        z-index: 5;
+        left: 20px;
+    }
+
+    .navbar-item2 {
+        position: relative;
+        left: 20px;
     }
 }
 
-.nav-bar h1 {
-    padding-top: 6px;
-}
-
-.mobile-menu-btn {
-    margin-right: 15px;       
-}
-
-.mobile-menu-btn i {
-    font-size: 35px;
-    color: white;
+#hero {
+    margin-top: 55px;
 }
 
 
