@@ -14,6 +14,10 @@ body {
     margin: 0;
 }
 
+.desktop-navbar-onscroll {
+    display: none;
+}
+
 .navbar {
     background-color: #4c5b72;
     display: flex;
@@ -49,6 +53,10 @@ body {
 
 .mobile-menu-btn {
     margin-right: 15px;
+}
+
+.mobile-menu-btn:hover {
+    cursor: pointer;
 }
 
 .mobile-menu-btn i {
@@ -94,12 +102,7 @@ body {
 @media screen and (min-width: 450px) {
     .mobile-menu-btn {
         position: absolute;
-        left: 20px;
-    }
-
-    .navbar-item2 {
-        position: relative;
-        left: 20px;
+        left: 0;
     }
 }
 
@@ -107,11 +110,174 @@ body {
     margin-top: 55px;
 }
 
-
 #logo img {
     width: 198px;
     height: 28px;
 }
+
+.desktop-menu-btn div {
+    width: 45px;
+    height: 2.5px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.desktop-menu-btn div:nth-child(3) {
+    position: relative;
+    background-color: rgba(0, 0,0, 0);
+}
+
+.circle {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    background-color: rgb(255, 250, 250);    
+    height: 10px;
+    width: 12px;
+    top: -3px;
+    border-radius: 40%;
+}
+
+.desktop-menu-btn {
+    display: none;
+}
+
+.desktop-menu-btn:hover {
+    cursor: pointer;
+}
+
+.desktop-menu-btn:hover .line {
+    background-color: rgba(36,38,42,.9);
+    left: 0;
+}
+
+
+.desktop-navbar-onscroll {
+    background-color: #4c5b72;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: -90px;
+    transition: 0.2s top;
+    width: 100%;
+    z-index: 100;
+}
+
+.desktop-navbar-onscroll .flex-item {
+    height: 90px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-nav-btn {
+    color: white;
+    font-size: 55px;
+    font-weight: 500;
+    display: none;
+    cursor: pointer;
+}
+
+/* .desktop-navbar-onscroll background color when navbaritem2 is active */
+.navBarBackgroundColorChange {
+    background-color: rgba(36,38,42,0.98)
+}
+
+
+.show-desktop-navbar-onscroll {
+    top: 0;
+}
+
+@media screen and (min-width: 1000px){
+    #logo img {
+        width: 310px;
+        height: 44px;
+    }
+}
+
+@media screen and (min-width: 1025px){
+
+    .navbar {
+        position: relative;
+        z-index: 1;
+    }
+
+    #hero {
+        margin-top: initial;
+    }
+    
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    .navbar-item1 {
+        height: 90px;
+    }
+
+    .navbar-item2 {
+        display: none;
+    }
+
+    .desktop-menu-btn {
+        display: block;
+    }
+
+    .navbar-item1 {
+        width: 90%;
+        justify-content: space-between;
+    }
+
+    .navbar-item2 {
+        margin: 0;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(36,38,42,0.98);
+        top: 0;
+        z-index: -1;
+        overflow: auto;
+    }
+
+    .navbar-item2 ul li {
+        border: 0;
+        font-size: 50px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .navbar-item2 .our-services {
+        color: #00d3f3;
+    }
+
+    .navbar-item2 ul li:hover {
+        cursor: pointer;
+        color: #00d3f3;
+    }
+
+
+    /* .navbar-item2 */
+}
+
+.display-header-nav-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .wave-shape {
     transform: rotate(180deg);
