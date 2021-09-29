@@ -7,46 +7,44 @@ let navBarItem2 = document.querySelector(".navbar-item2");
 let navBar = document.querySelector(".navbar");
 let closeNavBtns = document.querySelectorAll(".close-nav-btn");
 
+let hero = document.querySelector("#hero");
+
 // display navigation links
 mobileMenuBtn.addEventListener('click', () => {
-    if(window.innerWidth > 1025) {
-        navBarItem2.classList.toggle("display-header-nav-flex");
-    } else {
-        navBarItem2.classList.toggle("display-header-nav");
-    }
+    navBarItem2.classList.toggle("display-header-nav");
 });
 
 // display navigation links in desktop mode
 desktopMenuBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         if(window.innerWidth > 1025) {
-            navBarItem2.classList.toggle("display-header-nav-flex");
+            if(navBarItem2.classList.contains("display-header-nav")) {
+                navBarItem2.classList.toggle("display-header-nav");
+            }
+            navBarItem2.classList.toggle("display-header-nav-asmodal");
             hiddenDesktopNavBar.classList.add("navBarBackgroundColorChange");
             desktopMenuBtns.forEach(btn => {
-                btn.style.display = "none";
+                btn.classList.add("hide-desktop-menu-btn");
             });
             closeNavBtns.forEach(btn => {
-                btn.style.display = "block";
+                btn.classList.add("show-close-nav-btn");
             });
-        } else {
-            navBarItem2.classList.toggle("display-header-nav");
-        }
+        } 
     });
 });
 
 closeNavBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        navBarItem2.classList.toggle("display-header-nav-flex");
+        navBarItem2.classList.toggle("display-header-nav-asmodal");
         hiddenDesktopNavBar.classList.remove("navBarBackgroundColorChange");
         desktopMenuBtns.forEach(btn => {
-            btn.style.display = "block";
+            btn.classList.remove("hide-desktop-menu-btn");
         });
         closeNavBtns.forEach(btn => {
-            btn.style.display = "none";
+            btn.classList.remove("show-close-nav-btn");
         });
     });
 });
-
 
 
 // hide navigation bar when scrolled up and show scrolled down 
@@ -56,9 +54,11 @@ window.addEventListener("scroll", () => {
     if(window.innerWidth < 1025) {
         let currentScrollPosition = window.pageYOffset;
         if (prevScrollPosition > currentScrollPosition) {
-            navBar.style.top = "0";
+            // navBar.style.top = "0";
+            navBar.classList.remove("hide-navbar");
         } else {
-            navBar.style.top = "-55px";
+            // navBar.style.top = "-55px";
+            navBar.classList.add("hide-navbar");
         }
         prevScrollPosition = currentScrollPosition;
     } else {
@@ -71,5 +71,52 @@ window.addEventListener("scroll", () => {
     }
 })
 
-// show hidden desktop navbar onscroll 
+{/* <div id="myvideo"></div> */}
+
+let player;
+let videoId='hWcLEr75coc';
+let startSeconds = 0;  // set your own video start time when loop play
+let endSeconds = 9;   // set your own video end time when loop play
+let playerConfig = {
+  height: '560',
+  width: '315',
+  videoId: videoId,
+  playerVars: {
+
+    autoplay: 1,            // Auto-play the video on load
+    controls: 0,            // Show pause/play buttons in player
+    showinfo: 0,            // Hide the video title
+    modestbranding: 1,      // Hide the Youtube Logo
+    fs: 1,                  // Hide the full screen button
+    cc_load_policy: 0,      // Hide closed captions
+    iv_load_policy: 3,      // Hide the Video Annotations
+    start: startSeconds,
+    end: endSeconds,
+    autohide: 0, // Hide video controls when playing
+  },
+  events: {
+       'onStateChange': onStateChange,       // reference to Iframe API
+        onReady: function(e) {              // mute the video when loaded
+        e.target.mute();             
+      }
+    }
+};
+//excute the video in div
+function onYouTubePlayerAPIReady() {
+
+  player = new YT.Player('background-video', playerConfig);
+
+}
+//repload the video when onStateChange=YT.PlayerState.ENDED)
+function onStateChange(state) {
+  if (state.data === YT.PlayerState.ENDED) {
+    player.loadVideoById({
+      videoId: videoId,
+      startSeconds: startSeconds,
+      endSeconds: endSeconds
+
+    });
+  }
+}
+
 
