@@ -7,7 +7,14 @@ let navBarItem2 = document.querySelector(".navbar-item2");
 let navBar = document.querySelector(".navbar");
 let closeNavBtns = document.querySelectorAll(".close-nav-btn");
 
+let formErrorMessageLabel = document.querySelector(".error-message");
+let requiredFormElements = document.getElementById("form").querySelectorAll("[required]");
+
 let hero = document.querySelector("#hero");
+
+let dropdown = document.querySelector(".budget-dropdown");
+
+let scrollToTopBtn = document.querySelector(".scroll-to-top");
 
 // display navigation links
 mobileMenuBtn.addEventListener('click', () => {
@@ -69,7 +76,50 @@ window.addEventListener("scroll", () => {
             hiddenDesktopNavBar.classList.remove("show-desktop-navbar-onscroll");
         }
     }
+
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        scrollToTopBtn.style.display = "block";
+    } else {
+        scrollToTopBtn.style.display = "none";
+    }
 })
+
+// console.log(requiredFormElements)
+
+requiredFormElements.forEach(ele => {
+    ele.addEventListener('blur', (e) => {
+        console.log(e.target.nextElementSibling);
+        if(e.target.value) {
+            e.target.classList.remove("form-input-error-border-color");
+            e.target.nextElementSibling.classList.remove("show-error-message");
+            // console.log(e.target.nextElementSibling);
+        } else {
+            e.target.classList.add("form-input-error-border-color");
+            e.target.nextElementSibling.classList.add("show-error-message");
+            // console.log(e.target.nextElementSibling);
+        }
+    });    
+});
+
+
+dropdown.addEventListener('change', (e) => {
+    console.log(e.target.classList.add("value-got-selected"))
+})
+
+
+
+scrollToTopBtn.addEventListener('click', () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0
+});
+
+
+
+
+
+
+
+
 
 {/* <div id="myvideo"></div> */}
 
