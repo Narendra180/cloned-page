@@ -118,56 +118,61 @@ scrollToTopBtn.addEventListener('click', () => {
 
 // background video code
 
-if(window.innerWidth > 767) {
-    let tag = document.createElement('script');
+let player;
 
-    tag.src = "https://www.youtube.com/iframe_api";
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+let tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+let firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-
-
-
-    let section = {
+let section = {
     start: 0,
     end: 11
-    };
+};
 
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    let player;
-    function onYouTubeIframeAPIReady() {
-    player = new YT.Player(
-        'player',
-        {
-        height: '100%',
-        width: '100%',
-        videoId: 'hWcLEr75coc',
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        },
-        playerVars: {
-            'controls': 0,
-            'mute': 1
-        }
-        }
-    );
-    }
 
-    function onPlayerReady(event) {
+// function onWindowResize() {
+//     // console.log(window.innerWidth)
+//     onYouTubeIframeAPIReady();
+// }   
+
+// window.addEventListener('resize', onWindowResize);
+
+
+//    This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+function onYouTubeIframeAPIReady() {
+    if(window.innerWidth > 767)
+        player = new YT.Player(
+            'player',
+            {
+            height: '100%',
+            width: '100%',
+            videoId: 'hWcLEr75coc',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            },
+            playerVars: {
+                'controls': 0,
+                'mute': 1
+            }
+            }
+        );
+}
+
+function onPlayerReady(event) {
     player.seekTo(section.start);
     player.playVideo();
-    }
+}
 
-    function onPlayerStateChange(event) {
+function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
-        var duration = section.end - section.start;
+        let duration = section.end - section.start;
         setTimeout(restartVideoSection, duration * 1000);
     }
-    }
+}
 
-    function restartVideoSection() {
+function restartVideoSection() {
     player.seekTo(section.start);
-    }
 }

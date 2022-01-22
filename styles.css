@@ -619,6 +619,7 @@ body {
     align-items: center;
 }
 
+
 .service-information-con:nth-child(odd) {
     background-color: white;
 }
@@ -628,8 +629,8 @@ body {
     justify-content: center;
     max-width: 1140px;
     flex-direction: column;
-
     padding: 10px;
+    align-items: center;
 }
 
 .service-info-child1 {
@@ -668,6 +669,12 @@ body {
     font-weight: 300;
 }
 
+@media screen and (max-width: 767px) { 
+    .service-info {
+        align-items: stretch;
+    }
+}
+
 @media screen and (min-width: 767px) {
     .service-information-con:nth-child(even) .service-info-child2{
         order: 1;
@@ -675,6 +682,7 @@ body {
 
     .service-info {
         flex-direction: row;
+        /* align-items: stretch; */
     }
 
     /* .service-info-child1, .service-info-child2 {
