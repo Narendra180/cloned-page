@@ -117,56 +117,111 @@ scrollToTopBtn.addEventListener('click', () => {
 
 
 // background video code
+window.addEventListener('DOMContentLoaded', (event) => {
+    // console.log('DOM fully loaded and parsed');
+    if(window.innerWidth > 767) {
+        loadVideo();
+    }
+});
+
+
+function onWindowResize() {
+    // console.log(window.innerWidth,"resized")
+
+    let playerEle = document.getElementById("player");
+    // console.log(playerEle);
+
+    if(window.innerWidth > 767 && playerEle.tagName !== "IFRAME") {
+        loadVideo();
+    }
+}   
+
+window.addEventListener('resize', onWindowResize);
+
 
 let player;
-
-let tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-let firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 let section = {
     start: 0,
     end: 11
 };
 
+function loadVideo() {
+    // if(window.innerWidth > 767) {
 
-// function onWindowResize() {
-//     // console.log(window.innerWidth)
-//     onYouTubeIframeAPIReady();
-// }   
+    //     removeApiScriptTagsFromDom();
 
-// window.addEventListener('resize', onWindowResize);
+
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        tag.className = "apiscript";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // } 
+    // else {
+    //     removeApiScriptTagsFromDom();
+    //     removeIframePlayerFromDom(); 
+    // }
+}
+
+// removes youtube api script tags from dom.
+// function removeApiScriptTagsFromDom() {
+//     let apiscriptags = document.querySelectorAll(".apiscript");
+//     // console.log(apiscriptags);
+//     apiscriptags.forEach(ele => {
+//         ele.remove();
+//     })
+
+//     // let wgapiscript = document.getElementById("www-widgetapi-script");
+//     // if(wgapiscript) wgapiscript.remove();
+// }
+
+
+// removes player replaced by youtube api and pushes new player div.
+// function removeIframePlayerFromDom() {
+//     let playerEle = document.getElementById("player");
+//     // console.log(playerEle.tagName)
+//     if(playerEle && playerEle.tagName === "IFRAME") {
+//         playerEle.remove();
+//         let playerDivTag = document.createElement('div');
+//         playerDivTag.id = "player";
+
+//         document.getElementById("background-video").appendChild(playerDivTag);
+//     }
+// }
 
 
 //    This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
-    if(window.innerWidth > 767)
-        player = new YT.Player(
-            'player',
-            {
-            height: '100%',
-            width: '100%',
-            videoId: 'hWcLEr75coc',
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            },
-            playerVars: {
-                'controls': 0,
-                'mute': 1
-            }
-            }
-        );
-}
+    // if(window.innerWidth > 767)
+    player = new YT.Player(
+        'player',
+        {
+        height: '100%',
+        width: '100%',
+        videoId: 'hWcLEr75coc',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        },
+        playerVars: {
+            'controls': 0,
+            'mute': 1
+        }
+        }
+    );
+        console.log("onyoutube api ready")
+    }
 
 function onPlayerReady(event) {
+    console.log("player ready");
     player.seekTo(section.start);
     player.playVideo();
 }
 
 function onPlayerStateChange(event) {
+    console.log("player state change");
     if (event.data == YT.PlayerState.PLAYING) {
         let duration = section.end - section.start;
         setTimeout(restartVideoSection, duration * 1000);
@@ -174,5 +229,6 @@ function onPlayerStateChange(event) {
 }
 
 function restartVideoSection() {
+    console.log("restart video section");
     player.seekTo(section.start);
 }
